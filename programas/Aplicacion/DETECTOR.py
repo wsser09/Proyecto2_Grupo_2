@@ -9,7 +9,7 @@ Note that tflite with optimization takes too long on Windows, so not even try.
 Try it on edge devices, including RPi. 
 """
 
-from keras.preprocessing.image import img_to_array
+
 import cv2
 import numpy as np
 import tflite_runtime.interpreter as tf
@@ -45,12 +45,13 @@ while True:
     for (x,y,w,h) in faces:
         cv2.rectangle(frame,(x,y),(x+w,y+h),(255,0,0),2)
         roi_gray=gray[y:y+h,x:x+w]
-        roi_gray=cv2.resize(roi_gray,(48,48),interpolation=cv2.INTER_AREA)
+        roi_gray=cv2.resize(roi_gray,(48,48))/255
 
         #Get image ready for prediction
-        roi=roi_gray.astype('float')/255.0  #Scale
-        roi=img_to_array(roi)
-        roi=np.expand_dims(roi,axis=0)  #Expand dims to get it ready for prediction (1, 48, 48, 1)
+        roi= np.array(roi_gray, dtype=np.float32).reshape(-1,48,48,1)
+        #roi=roi_gray.astype('float')/255.0  #Scale
+        #roi=img_to_array(roi)
+        #roi=np.expand_dims(roi,axis=0)  #Expand dims to get it ready for prediction (1, 48, 48, 1)
         
         emotion_interpreter.set_tensor(emotion_input_details[0]['index'], roi)
         emotion_interpreter.invoke()
@@ -67,6 +68,8 @@ while True:
     cv2.imshow('Emotion Detector', frame)
     if cv2.waitKey(1) & 0xFF == ord('x'):  #Press x to exit
         break
+        
+        
 cap.release()
 cv2.destroyAllWindows()
 
