@@ -9,13 +9,10 @@ Note that tflite with optimization takes too long on Windows, so not even try.
 Try it on edge devices, including RPi. 
 """
 
-from keras.models import load_model
-from time import sleep
 from keras.preprocessing.image import img_to_array
-from keras.preprocessing import image
 import cv2
 import numpy as np
-import tensorflow as tf
+import tflite_runtime.interpreter as tf
 
 face_classifier=cv2.CascadeClassifier('haarcascades_models/haarcascade_frontalface_default.xml')
 
@@ -23,7 +20,7 @@ face_classifier=cv2.CascadeClassifier('haarcascades_models/haarcascade_frontalfa
 #### PREDICT USING tflite ###
 
 # Load the TFLite model and allocate tensors.
-emotion_interpreter = tf.lite.Interpreter(model_path="emotion_detection_model_100epochs_no_opt.tflite")
+emotion_interpreter = tf.Interpreter(model_path="emotion_detection_model_200epochs_no_opt.tflite")
 emotion_interpreter.allocate_tensors()
 
 
