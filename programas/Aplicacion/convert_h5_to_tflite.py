@@ -7,7 +7,7 @@ import tensorflow as tf
 import keras
 from keras.models import load_model
 
-emotion_model = load_model('emotion_detection_model_100epochs.h5', compile=False)
+emotion_model = load_model('emotion_detection_model_200epochs.h5', compile=False)
 
 
 

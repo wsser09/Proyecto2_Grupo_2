@@ -59,6 +59,8 @@ while True:
         #preds=emotion_model.predict(roi)[0]  #Yields one hot encoded result for 7 classes
         emotion_label=class_labels[emotion_preds.argmax()]  #Find the label
         emotion_label_position=(x,y)
+        
+        
         cv2.putText(frame,emotion_label,emotion_label_position,cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
         
        
