@@ -11,11 +11,14 @@ Try it on edge devices, including RPi.
 
 
 import cv2
+import time
+import sys
 import numpy as np
 from datetime import datetime
 import tflite_runtime.interpreter as tf
 
 ################ Programa ##############
+mst=float(sys.argv[1])
 
 ##########---------- Estadísticas -----------############
 def txtPorcentaje(emocion,cantidad, porcentaje):
