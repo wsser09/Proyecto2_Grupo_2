@@ -12,7 +12,42 @@ Try it on edge devices, including RPi.
 
 import cv2
 import numpy as np
+from datetime import datetime
 import tflite_runtime.interpreter as tf
+
+################ Programa ##############
+
+##########---------- Estadísticas -----------############
+def txtPorcentaje(emocion,cantidad, porcentaje):
+    # dd_mm_YY___h_m_s
+    now = datetime.now()
+    array = []
+    array = [str(emocion),str(cantidad), 'Porcentaje = ',str(porcentaje)]
+    with open(Estadisticas, 'a') as f:
+        f.write(' '.join(array))
+        f.write('\n')
+
+def txtTotal(emocion, dt_string):
+    # dd_mm_YY___h_m_s
+    now = datetime.now()
+    Emociones_time= now.strftime("%H_%M_%S ")
+    array = []
+    array = [Emociones_time,emocion]
+    with open(Emociones, 'a') as f:
+        f.write(' '.join(array))
+        f.write('\n')
+
+def printporcentajes(emociones):
+    print('-----------------------------------------------')
+    print('Estadistica de las emociones detectadas: \n \n')
+    directorio = {i:emociones.count(i) for i in emociones}
+    suma_emociones = sum(list(directorio.values()))
+    for i in list(directorio.keys()):
+        print (i, directorio.get(i), 'Porcentaje = ', 100*(directorio.get(i) /suma_emociones))
+        txtPorcentaje(i, directorio.get(i), 100*(directorio.get(i) /suma_emociones))
+    print('----------------------------------------------- \n')
+
+########################################
 
 face_classifier=cv2.CascadeClassifier('haarcascades_models/haarcascade_frontalface_default.xml')
 
@@ -33,8 +68,14 @@ emotion_input_shape = emotion_input_details[0]['shape']
 
 class_labels=['Angry','Disgust', 'Fear', 'Happy','Neutral','Sad','Surprise']
 
-cap=cv2.VideoCapture(0)
 
+cap=cv2.VideoCapture(0)
+#####################################
+emociones = []
+now= datetime.now()
+Estadisticas = 'Stat_'+ now.strftime("%H_%M_%S__%d_%m_%Y")+'.txt'
+Emociones = 'Total_'+ now.strftime("%H_%M_%S__%d_%m_%Y")+'.txt'
+####################################
 while True:
     ret,frame=cap.read()
     labels=[]
@@ -64,12 +105,17 @@ while True:
         
         cv2.putText(frame,emotion_label,emotion_label_position,cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0),2)
         
+        #####################################
+        print(emotion_label)
+        emociones.append(emotion_label)
+        txtTotal(emotion_label,Emociones)
        
     cv2.imshow('Emotion Detector', frame)
     if cv2.waitKey(1) & 0xFF == ord('x'):  #Press x to exit
         break
         
-        
+printporcentajes(emociones)
+       
 cap.release()
 cv2.destroyAllWindows()
 
