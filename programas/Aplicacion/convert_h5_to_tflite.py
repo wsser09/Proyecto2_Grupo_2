@@ -14,4 +14,4 @@ emotion_model = load_model('emotion_detection_model_200epochs.h5', compile=False
 converter = tf.lite.TFLiteConverter.from_keras_model(emotion_model)
 #converter.optimizations = [tf.lite.Optimize.DEFAULT] #Uses default optimization strategy to reduce the model size
 tflite_model = converter.convert()
-open("emotion_detection_model_100epochs_no_opt.tflite", "wb").write(tflite_model)
+open("emotion_detection_model_200epochs_no_opt.tflite", "wb").write(tflite_model)
