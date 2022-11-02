@@ -9,7 +9,7 @@ Note that tflite with optimization takes too long on Windows, so not even try.
 Try it on edge devices, including RPi. 
 """
 
-
+import os
 import cv2
 import time
 import sys
@@ -75,9 +75,15 @@ class_labels=['Angry','Disgust', 'Fear', 'Happy','Neutral','Sad','Surprise']
 cap=cv2.VideoCapture(0)
 #####################################
 emociones = []
+if os.path.isdir('./resultado/'):
+    pass    
+else:
+    os.mkdir('./resultado/')
+
+
 now= datetime.now()
-Estadisticas = 'Stat_'+ now.strftime("%H_%M_%S__%d_%m_%Y")+'.txt'
-Emociones = 'Total_'+ now.strftime("%H_%M_%S__%d_%m_%Y")+'.txt'
+Estadisticas = './resultado/Stat_'+ now.strftime("%H_%M_%S__%d_%m_%Y")+'.txt'
+Emociones = './resultado/Total_'+ now.strftime("%H_%M_%S__%d_%m_%Y")+'.txt'
 ####################################
 while True:
     ret,frame=cap.read()
