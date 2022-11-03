@@ -3,17 +3,18 @@ from tkinter import *
 window = Tk()
 window.title("Detector de Emociones")
 window.minsize(width=500, height=300)
+window.config(padx=100, pady=200)
 
 #Label  #cambio texto como diccionario
 
 my_label1 = Label(font=("Times", 24)) #create component
-my_label1.pack() #how it show
 my_label1["text"] = "Bienvenido a nuestro detector de emociones"
+my_label1.grid(column=1, row=0)
 
 #otra forma de cambiar texto #cambio atributo del objeot
 my_label2 = Label(font=("Times", 24))
-my_label2.pack()
 my_label2.config(text="Seleccione una opcion: ")
+my_label2.grid(column=1, row=1)
 
 #Botones
 
@@ -28,13 +29,13 @@ def button3_clicked():
     
 
 button1 = Button(text="INICIAR PROGRAMA", command=button1_clicked)
-button1.pack()
+button1.grid(column=0, row=2)
 
 button2 = Button(text="FINALIZAR PROGRAMA", command=button2_clicked)
-button2.pack()
+button2.grid(column=1, row=2)
 
 button3 = Button(text="MOSTRAR DATOS", command=button3_clicked)
-button3.pack()
+button3.grid(column=2, row=2)
 
 #Entry
 
