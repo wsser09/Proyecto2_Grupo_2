@@ -52,7 +52,7 @@ def printporcentajes(emociones):
 
 ########################################
 
-face_classifier=cv2.CascadeClassifier('haarcascades_models/haarcascade_frontalface_default.xml')
+face_classifier=cv2.CascadeClassifier('haarcascade_frontalface_default.xml')
 
 
 #### PREDICT USING tflite ###
@@ -80,7 +80,7 @@ if os.path.isdir('./resultado/'):
 else:
     os.mkdir('./resultado/')
 
-
+        
 now= datetime.now()
 Estadisticas = './resultado/Stat_'+ now.strftime("%H_%M_%S__%d_%m_%Y")+'.txt'
 Emociones = './resultado/Total_'+ now.strftime("%H_%M_%S__%d_%m_%Y")+'.txt'
