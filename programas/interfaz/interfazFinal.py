@@ -1,4 +1,6 @@
 from tkinter import * 
+import subprocess
+import prueba as pb
 
 window = Tk()
 window.title("Detector de Emociones")
@@ -19,10 +21,13 @@ my_label2.grid(column=1, row=1)
 #Botones
 
 def button1_clicked():
-    print("Button 1 clicked")
+    command1 = ("ssh", "root@192.168.0.100", "-X", "python3 DETECTOR.py 0.1")
+    sshProcess =subprocess.run(command1)
+    
 
 def button2_clicked():
-    print("Button 2 clicked")
+    pb.holaMundo("Walter")
+    # print("Button 2 clicked")
 
 def button3_clicked():
     print("Button 3 clicked")
@@ -37,10 +42,6 @@ button2.grid(column=1, row=2)
 button3 = Button(text="MOSTRAR DATOS", command=button3_clicked)
 button3.grid(column=2, row=2)
 
-#Entry
-
-# input = Entry()
-# input.pack()
 
 
 window.mainloop()
